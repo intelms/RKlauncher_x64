@@ -1,0 +1,10 @@
+LIBRARY StackDocklet
+EXPORTS
+    OnGetInformation
+    OnCreate
+    OnDestroy
+    OnSave
+    OnConfigure
+    OnLeftButtonClick
+    OnAcceptDropFiles
+    OnDropFiles

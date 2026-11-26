@@ -1,0 +1,22 @@
+NAME RKLauncher.exe
+EXPORTS
+    DockletBrowseForImage
+    DockletDefaultConfigDialog
+    DockletDoAttentionAnimation
+    DockletGetLabel
+    DockletGetRect
+    DockletGetRelativeFolder
+    DockletGetRootFolder
+    DockletIsVisible
+    DockletLoadGDIPlusImage
+    DockletLockMouseEffect
+    DockletQueryDockAlign
+    DockletQueryDockEdge
+    DockletSetDockAlign
+    DockletSetDockEdge
+    DockletSetImage
+    DockletSetImageFile
+    DockletSetImageOverlay
+    DockletSetIndicator
+    DockletSetLabel
+    RKLauncherGetVersion

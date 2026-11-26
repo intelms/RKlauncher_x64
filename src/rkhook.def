@@ -1,0 +1,9 @@
+LIBRARY RKLauncher
+EXPORTS
+    RKHookDisable
+    RKHookEnable
+    RKSetHookMouse
+    RKSetHookCBT
+    RKRemoveHookCBT
+    RKRemoveHookMouse
+    RKSetMinimize

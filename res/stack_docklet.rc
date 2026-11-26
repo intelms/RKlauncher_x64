@@ -1,0 +1,78 @@
+#include <windows.h>
+#include <commctrl.h>
+#include "stack_docklet_res.h"
+
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+IDD_STACK_CURRENT DIALOGEX 0, 0, 268, 198
+STYLE DS_SHELLFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Current docklet"
+FONT 9, "Segoe UI"
+BEGIN
+    GROUPBOX        "Source", -1, 7, 7, 254, 64
+    AUTORADIOBUTTON "Folder:", IDC_RAD_FOLDER, 14, 21, 56, 12, WS_GROUP | WS_TABSTOP
+    EDITTEXT        IDC_EDIT_FOLDER, 74, 20, 152, 14, ES_AUTOHSCROLL
+    PUSHBUTTON      "...", IDC_BTN_BROWSE_FOLDER, 230, 19, 24, 15
+    AUTORADIOBUTTON "Special:", IDC_RAD_SPECIAL, 14, 42, 56, 12
+    COMBOBOX        IDC_COMBO_SPECIAL, 74, 40, 180, 120, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+
+    GROUPBOX        "Appearance", -1, 7, 76, 254, 114
+    LTEXT           "Icon:", -1, 14, 92, 56, 10
+    EDITTEXT        IDC_EDIT_ICON, 74, 89, 120, 14, ES_AUTOHSCROLL
+    PUSHBUTTON      "...", IDC_BTN_BROWSE_ICON, 198, 88, 24, 15
+    PUSHBUTTON      "Clear", IDC_BTN_CLEAR_ICON, 224, 88, 30, 15
+    LTEXT           "Title:", -1, 14, 112, 56, 10
+    EDITTEXT        IDC_EDIT_TITLE, 74, 109, 180, 14, ES_AUTOHSCROLL
+    LTEXT           "Mode:", -1, 14, 131, 56, 10
+    COMBOBOX        IDC_COMBO_MODE, 74, 128, 180, 90, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Sort items by:", -1, 14, 149, 56, 10
+    COMBOBOX        IDC_COMBO_SORT, 74, 146, 180, 90, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Show icon:", -1, 14, 167, 56, 10
+    COMBOBOX        IDC_COMBO_ICON_STYLE, 74, 164, 116, 90, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    AUTOCHECKBOX    "Hide ""Open folder""", IDC_CHK_HIDE_OPEN, 194, 166, 65, 12
+END
+
+IDD_STACK_GLOBAL DIALOGEX 0, 0, 268, 198
+STYLE DS_SHELLFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Global settings"
+FONT 9, "Segoe UI"
+BEGIN
+    GROUPBOX        "Labels & Font", -1, 7, 7, 254, 94
+    LTEXT           """Open folder"" text:", -1, 14, 24, 72, 10
+    EDITTEXT        IDC_EDIT_OPEN_TEXT, 90, 21, 164, 14, ES_AUTOHSCROLL
+    LTEXT           """%d more..."" text:", -1, 14, 44, 72, 10
+    EDITTEXT        IDC_EDIT_MORE_TEXT, 90, 41, 164, 14, ES_AUTOHSCROLL
+    LTEXT           "Font:", -1, 14, 65, 72, 10
+    EDITTEXT        IDC_EDIT_FONT_DESC, 90, 62, 118, 14, ES_READONLY | ES_AUTOHSCROLL
+    PUSHBUTTON      "Choose...", IDC_BTN_CHOOSE_FONT, 212, 61, 42, 15
+    AUTOCHECKBOX    "Follow dock edge orientation", IDC_CHK_FOLLOW_DOCK, 14, 83, 210, 12
+END
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,0,0,64
+ PRODUCTVERSION 2,0,0,64
+ FILEFLAGSMASK 0x3fL
+ FILEFLAGS 0x0L
+ FILEOS 0x40004L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "Matonga (x64 Port)"
+            VALUE "FileDescription", "Stack Docklet (x64)"
+            VALUE "FileVersion", "2.0.0.64"
+            VALUE "InternalName", "StackDocklet"
+            VALUE "LegalCopyright", "StackDocklet (x64 Native Port)"
+            VALUE "OriginalFilename", "StackDocklet.dll"
+            VALUE "ProductName", "Stack Docklet (x64)"
+            VALUE "ProductVersion", "2.0.0.64"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

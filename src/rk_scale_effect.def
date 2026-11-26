@@ -1,0 +1,6 @@
+LIBRARY RKScaleEffect
+EXPORTS
+    EffectCreate
+    EffectDestroy
+    EffectGetDisplayName
+    EffectNextStep

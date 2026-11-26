@@ -1,0 +1,318 @@
+#include <windows.h>
+#include <commctrl.h>
+#include "resource.h"
+
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+IDI_MAIN ICON "RKLauncher.ico"
+1 RT_MANIFEST "app.manifest"
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 0,41,0,282
+ PRODUCTVERSION 0,41,0,282
+ FILEFLAGSMASK 0x3fL
+ FILEFLAGS 0x2L
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "FileDescription", "RK Launcher x64 Dock"
+            VALUE "FileVersion", "0.41.0.282"
+            VALUE "InternalName", "RKLauncher"
+            VALUE "LegalCopyright", "Copyright (C) 2004-2006 RaduKing (x64 Port)"
+            VALUE "OriginalFilename", "RKLauncher.exe"
+            VALUE "PrivateBuild", "282 (x64)"
+            VALUE "ProductName", "RK Launcher 0.41 Beta (x64)"
+            VALUE "ProductVersion", "0.41 Beta"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+STRINGTABLE
+BEGIN
+    IDS_SETTINGS_TITLE     "RK Launcher Settings"
+    IDS_BEH_ALWAYSONTOP    "Always on Top"
+    IDS_BEH_AUTOHIDE       "Automatic Hide"
+    IDS_BEH_LOCKED         "Lock add/remove/drag"
+    IDS_BEH_MINIMIZETODOCK "Minimize windows to RK Launcher"
+    IDS_BEH_SAVEONEXIT     "Save settings on exit"
+    IDS_BEH_SAVEONCHANGE   "Save item settings on change"
+    IDS_BEH_SAVEITEMS      "Save dock items on exit"
+    IDS_BEH_NEWAPPS        "Show new applications"
+    IDS_BEH_HOTSPOT        "Use margin hotspot"
+    IDS_BEH_HIDETASKBAR    "Hide Windows taskbar"
+    IDS_BEH_NEVERTAKEFOCUS "Never take focus"
+    IDS_BEH_STARTWITHWIN   "Start with Windows"
+    IDS_BEH_SHOWMINICON    "Show minimized window icon"
+    IDS_EXC_NEWAPPS        "Never show on RK Launcher"
+    IDS_EXC_MINIMIZE       "Never minimize to RK Launcher"
+    IDS_LANG_SELECT        "Select Language"
+    IDS_LANG_INFO          "Built-in English (x64) or place .lang files into lang\\"
+END
+
+// Menu 130 (0x82): Submenu 0 = Dock Context Menu, Submenu 1 = Item Context Menu
+IDR_MAINMENU MENU
+BEGIN
+    POPUP "Dock"
+    BEGIN
+        MENUITEM "Keep Icons Magnified",        IDM_DOCK_MAGNIFY
+        MENUITEM "Always on Top",               IDM_DOCK_ALWAYSONTOP
+        MENUITEM "Automatic Hide",              IDM_DOCK_AUTOHIDE
+        MENUITEM "Lock Items",                  IDM_DOCK_LOCKITEMS
+        MENUITEM "Minimize Windows to Dock",    IDM_DOCK_MINIMIZE_TO_DOCK
+        POPUP "Position on Screen"
+        BEGIN
+            MENUITEM "Top Left",                IDM_POS_TOP_LEFT
+            MENUITEM "Top Center",              IDM_POS_TOP_CENTER
+            MENUITEM "Top Right",               IDM_POS_TOP_RIGHT
+            MENUITEM SEPARATOR
+            MENUITEM "Left Top",                IDM_POS_LEFT_TOP
+            MENUITEM "Left Center",             IDM_POS_LEFT_CENTER
+            MENUITEM "Left Bottom",             IDM_POS_LEFT_BOTTOM
+            MENUITEM SEPARATOR
+            MENUITEM "Right Top",               IDM_POS_RIGHT_TOP
+            MENUITEM "Right Center",            IDM_POS_RIGHT_CENTER
+            MENUITEM "Right Bottom",            IDM_POS_RIGHT_BOTTOM
+            MENUITEM SEPARATOR
+            MENUITEM "Bottom Left",             IDM_POS_BOTTOM_LEFT
+            MENUITEM "Bottom Center",           IDM_POS_BOTTOM_CENTER
+            MENUITEM "Bottom Right",            IDM_POS_BOTTOM_RIGHT
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Add Separator",               IDM_DOCK_ADD_SEPARATOR
+        MENUITEM "Remove Separator",            IDM_DOCK_DEL_SEPARATOR
+        MENUITEM SEPARATOR
+        MENUITEM "Add Item...",                 IDM_DOCK_ADD_ITEM
+        MENUITEM "Add Docklet...",              IDM_DOCK_ADD_DOCKLET
+        MENUITEM "Settings...",                 IDM_DOCK_SETTINGS
+        MENUITEM SEPARATOR
+        MENUITEM "Language...",                 IDM_DOCK_LANGUAGE
+        MENUITEM "About RK Launcher...",        IDM_DOCK_ABOUT
+        MENUITEM SEPARATOR
+        MENUITEM "Quit",                        IDM_DOCK_QUIT
+    END
+    POPUP "Item"
+    BEGIN
+        MENUITEM "Remove from Dock",            IDM_ITEM_REMOVE
+        MENUITEM "Dock Item Properties...",     IDM_ITEM_PROPERTIES
+        MENUITEM SEPARATOR
+        MENUITEM "Close Window",                IDM_ITEM_CLOSE_WINDOW
+        MENUITEM "Quit",                        IDM_DOCK_QUIT
+    END
+END
+
+IDD_ABOUT DIALOGEX 0, 0, 250, 120
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About RK Launcher"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    ICON            IDI_MAIN, -1, 14, 14, 32, 32
+    LTEXT           "RK Launcher 0.41 Beta (x64)", IDC_ABOUT_VERSION, 56, 16, 180, 12
+    LTEXT           "Original Copyright (C) 2004-2006 RaduKing.\nNative x64 C++17 Rebuild.", IDC_ABOUT_CREDITS, 56, 32, 180, 26
+    LTEXT           "http://home.cogeco.ca/~rklauncher/", IDC_ABOUT_HOMEPAGE, 56, 66, 180, 12
+    DEFPUSHBUTTON   "OK", IDOK, 98, 94, 54, 16
+END
+
+IDD_IMAGE_LOAD DIALOGEX 0, 0, 260, 132
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Choose Icon Image"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Image Path (.png / .ico / .exe):", -1, 12, 14, 180, 10
+    EDITTEXT        IDC_IMG_PATH, 12, 28, 206, 14, ES_AUTOHSCROLL
+    PUSHBUTTON      "...", IDC_IMG_BROWSE, 222, 28, 26, 14
+    LTEXT           "Images from icons\\ or any PNG/ICO/EXE file can be selected.", -1, 12, 52, 236, 36
+    DEFPUSHBUTTON   "OK", IDOK, 142, 104, 50, 16
+    PUSHBUTTON      "Cancel", IDCANCEL, 198, 104, 50, 16
+END
+
+IDD_LANGUAGE DIALOGEX 0, 0, 240, 165
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Language"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LISTBOX         IDC_LANG_LIST, 12, 12, 216, 94, LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP | LBS_NOTIFY
+    LTEXT           "Built-in English", IDC_LANG_DESC, 12, 112, 216, 20
+    DEFPUSHBUTTON   "OK", IDOK, 122, 138, 50, 16
+    PUSHBUTTON      "Cancel", IDCANCEL, 178, 138, 50, 16
+END
+
+IDD_ITEM_PROPERTIES DIALOGEX 0, 0, 292, 198
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dock Item Properties"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Name:", -1, 16, 16, 52, 10
+    EDITTEXT        IDC_PROP_NAME, 76, 14, 202, 14, ES_AUTOHSCROLL
+    LTEXT           "Link:", -1, 16, 36, 52, 10
+    EDITTEXT        IDC_PROP_LINK, 76, 34, 174, 14, ES_AUTOHSCROLL
+    PUSHBUTTON      "...", IDC_PROP_BROWSE_LINK, 254, 34, 24, 14
+    LTEXT           "Arguments:", -1, 16, 56, 52, 10
+    EDITTEXT        IDC_PROP_ARGS, 76, 54, 202, 14, ES_AUTOHSCROLL
+    LTEXT           "Work Folder:", -1, 16, 76, 52, 10
+    EDITTEXT        IDC_PROP_WORKDIR, 76, 74, 202, 14, ES_AUTOHSCROLL
+    LTEXT           "Run:", -1, 16, 98, 52, 10
+    COMBOBOX        IDC_PROP_SHOW, 76, 96, 100, 50, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    AUTOCHECKBOX    "Minimize multiple instances (Single Instance)", IDC_PROP_SAME_INSTANCE, 76, 120, 196, 12
+    AUTOCHECKBOX    "Custom Icon", IDC_PROP_CUSTOM_ICON, 76, 136, 110, 12
+    PUSHBUTTON      "Change Icon...", IDC_PROP_CHANGE_ICON, 192, 134, 86, 15
+    DEFPUSHBUTTON   "OK", IDOK, 172, 172, 50, 16
+    PUSHBUTTON      "Cancel", IDCANCEL, 228, 172, 50, 16
+END
+
+IDD_ADD_DOCKLET DIALOGEX 0, 0, 290, 200
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Add ObjectDock Docklet (x64)"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Available x64 Docklets in docklets\\:", -1, 12, 10, 180, 10
+    LISTBOX         IDC_DOCKLET_LIST, 12, 24, 266, 86, LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP | LBS_NOTIFY
+    LTEXT           "DLL Path:", -1, 12, 118, 40, 10
+    EDITTEXT        IDC_DOCKLET_PATH, 54, 116, 194, 14, ES_AUTOHSCROLL
+    PUSHBUTTON      "...", IDC_DOCKLET_ADD_BTN, 252, 116, 26, 14
+    LTEXT           "Author:", IDC_DOCKLET_AUTHOR, 12, 136, 266, 10
+    LTEXT           "Notes:", IDC_DOCKLET_NOTES, 12, 148, 266, 20
+    DEFPUSHBUTTON   "OK", IDOK, 172, 174, 50, 16
+    PUSHBUTTON      "Cancel", IDCANCEL, 228, 174, 50, 16
+END
+
+IDD_PAGE_APPEARANCE DIALOGEX 0, 0, 270, 215
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Appearance"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Theme:", -1, 12, 14, 55, 10
+    COMBOBOX        IDC_APP_THEME_COMBO, 76, 12, 180, 80, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Icon Size:", -1, 12, 36, 55, 10
+    CONTROL         "", IDC_APP_SMALL_SLIDER, TRACKBAR_CLASSW, TBS_AUTOTICKS | WS_TABSTOP, 74, 33, 142, 18
+    LTEXT           "48 px", IDC_APP_SMALL_VAL, 222, 36, 38, 10
+    AUTOCHECKBOX    "Magnify", IDC_APP_MAG_CHECK, 12, 58, 60, 12
+    CONTROL         "", IDC_APP_MAG_SLIDER, TRACKBAR_CLASSW, TBS_AUTOTICKS | WS_TABSTOP, 74, 55, 142, 18
+    LTEXT           "64 px", IDC_APP_MAG_VAL, 222, 58, 38, 10
+    LTEXT           "Magnify Span:", -1, 12, 80, 58, 10
+    EDITTEXT        IDC_APP_SPAN_EDIT, 76, 78, 42, 13, ES_NUMBER | ES_AUTOHSCROLL
+    LTEXT           "BG Opacity:", -1, 12, 102, 58, 10
+    CONTROL         "", IDC_APP_ALPHA_SLIDER, TRACKBAR_CLASSW, TBS_AUTOTICKS | WS_TABSTOP, 74, 99, 142, 18
+    LTEXT           "Item Distance:", -1, 12, 124, 58, 10
+    CONTROL         "", IDC_APP_DIST_SLIDER, TRACKBAR_CLASSW, TBS_AUTOTICKS | WS_TABSTOP, 74, 121, 142, 18
+    LTEXT           "0", IDC_APP_DIST_VAL, 222, 124, 38, 10
+    AUTOCHECKBOX    "Hide running indicators", IDC_APP_HIDE_IND, 12, 154, 150, 12
+    AUTOCHECKBOX    "Hide poof effect", IDC_APP_HIDE_POOF, 12, 172, 150, 12
+END
+
+IDD_PAGE_POSITION DIALOGEX 0, 0, 270, 215
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Position"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Screen Edge & Alignment", -1, 10, 8, 250, 118
+    AUTORADIOBUTTON "Top Left",      IDC_POS_RAD_TL, 20, 24, 72, 12, WS_GROUP
+    AUTORADIOBUTTON "Top Center",    IDC_POS_RAD_TC, 98, 24, 72, 12
+    AUTORADIOBUTTON "Top Right",     IDC_POS_RAD_TR, 176, 24, 72, 12
+    AUTORADIOBUTTON "Right Top",     IDC_POS_RAD_RT, 20, 46, 72, 12
+    AUTORADIOBUTTON "Right Center",  IDC_POS_RAD_RC, 98, 46, 72, 12
+    AUTORADIOBUTTON "Right Bottom",  IDC_POS_RAD_RB, 176, 46, 72, 12
+    AUTORADIOBUTTON "Bottom Right",  IDC_POS_RAD_BR, 176, 90, 72, 12
+    AUTORADIOBUTTON "Bottom Center", IDC_POS_RAD_BC, 98, 90, 72, 12
+    AUTORADIOBUTTON "Bottom Left",   IDC_POS_RAD_BL, 20, 90, 72, 12
+    AUTORADIOBUTTON "Left Top",      IDC_POS_RAD_LT, 20, 68, 72, 12
+    AUTORADIOBUTTON "Left Center",   IDC_POS_RAD_LC, 98, 68, 72, 12
+    AUTORADIOBUTTON "Left Bottom",   IDC_POS_RAD_LB, 176, 68, 72, 12
+    LTEXT           "Edge Margin:", -1, 12, 140, 56, 10
+    CONTROL         "", IDC_POS_MARGIN_SLIDER, TRACKBAR_CLASSW, TBS_AUTOTICKS | WS_TABSTOP, 74, 137, 142, 18
+    LTEXT           "0 px", IDC_POS_MARGIN_VAL, 222, 140, 38, 10
+    AUTOCHECKBOX    "Enable Multi-Monitor Support", IDC_POS_MULTIMON, 12, 168, 200, 12
+END
+
+IDD_PAGE_BEHAVIOR DIALOGEX 0, 0, 270, 215
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Behavior"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "", IDC_BEH_LIST, WC_LISTVIEWW, LVS_REPORT | LVS_NOCOLUMNHEADER | LVS_SINGLESEL | WS_BORDER | WS_VSCROLL | WS_TABSTOP, 10, 8, 250, 120
+    AUTOCHECKBOX    "Bounce on launch", IDC_BEH_ANIMATION, 12, 134, 92, 12
+    LTEXT           "Count:", -1, 108, 136, 26, 10
+    EDITTEXT        IDC_BEH_ANIM_COUNT, 136, 134, 30, 13, ES_NUMBER | ES_AUTOHSCROLL
+    AUTOCHECKBOX    "Full Edge Hotspot", IDC_BEH_HOTSPOT_FULL, 174, 134, 86, 12
+    LTEXT           "Auto-hide delay (ms):", -1, 12, 156, 88, 10
+    EDITTEXT        IDC_BEH_AUTOHIDE_DELAY, 104, 154, 46, 13, ES_NUMBER | ES_AUTOHSCROLL
+    LTEXT           "Hotspot delay (ms):", -1, 12, 176, 88, 10
+    EDITTEXT        IDC_BEH_HOTSPOT_DELAY, 104, 174, 46, 13, ES_NUMBER | ES_AUTOHSCROLL
+END
+
+IDD_PAGE_LABEL DIALOGEX 0, 0, 260, 215
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Label"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Item Labels", -1, 7, 7, 246, 149
+    LTEXT           "Font:", -1, 44, 22, 25, 8
+    COMBOBOX        IDC_LBL_FONT, 73, 20, 101, 111, CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Size:", -1, 44, 40, 24, 8
+    COMBOBOX        IDC_LBL_SIZE, 73, 38, 48, 94, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    AUTOCHECKBOX    "Bold", IDC_LBL_BOLD, 129, 40, 30, 10
+    AUTOCHECKBOX    "Italic", IDC_LBL_ITALIC, 164, 40, 31, 10
+    LTEXT           "Order:", -1, 44, 58, 27, 8
+    COMBOBOX        IDC_LBL_ORDER, 73, 56, 101, 30, CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Label Color:", -1, 27, 76, 43, 8
+    CONTROL         "", IDC_LBL_COLOR_TEXT, "Button", BS_OWNERDRAW | WS_TABSTOP, 73, 74, 50, 14
+    CONTROL         "", IDC_LBL_ALPHA_TEXT, TRACKBAR_CLASSW, TBS_AUTOTICKS | WS_TABSTOP, 129, 74, 117, 15
+    LTEXT           "Edge Color:", -1, 27, 94, 43, 8
+    CONTROL         "", IDC_LBL_COLOR_EDGE, "Button", BS_OWNERDRAW | WS_TABSTOP, 73, 92, 50, 14
+    CONTROL         "", IDC_LBL_ALPHA_EDGE, TRACKBAR_CLASSW, TBS_AUTOTICKS | WS_TABSTOP, 129, 92, 117, 15
+    LTEXT           "Shadow Color:", -1, 20, 112, 50, 8
+    CONTROL         "", IDC_LBL_COLOR_SHADOW, "Button", BS_OWNERDRAW | WS_TABSTOP, 73, 110, 50, 14
+    CONTROL         "", IDC_LBL_ALPHA_SHADOW, TRACKBAR_CLASSW, TBS_AUTOTICKS | WS_TABSTOP, 129, 110, 117, 15
+    LTEXT           "Opacity", -1, 177, 125, 25, 8
+    AUTOCHECKBOX    "Hide Label", IDC_LBL_HIDE, 73, 140, 50, 10
+    AUTOCHECKBOX    "Fade Label", IDC_LBL_FADE, 129, 140, 60, 10
+    GROUPBOX        "Preview", IDC_LBL_PREVIEW, 7, 160, 246, 46
+END
+
+IDD_PAGE_EXCLUSIONS DIALOGEX 0, 0, 270, 215
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Exclusions"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Exclusion List:", -1, 12, 12, 54, 10
+    COMBOBOX        IDC_EXC_TYPE_COMBO, 70, 10, 188, 60, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_EXC_LIST, 12, 32, 184, 124, WS_VSCROLL | WS_TABSTOP | LBS_NOINTEGRALHEIGHT
+    PUSHBUTTON      "Add", IDC_EXC_ADD, 202, 32, 56, 16
+    PUSHBUTTON      "Remove", IDC_EXC_DEL, 202, 54, 56, 16
+    LTEXT           "Executable name (e.g. notepad.exe):", -1, 12, 164, 180, 10
+    EDITTEXT        IDC_EXC_EDIT, 12, 178, 184, 14, ES_AUTOHSCROLL
+END
+
+IDD_PAGE_MENU DIALOGEX 0, 0, 270, 215
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Menu"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    AUTOCHECKBOX    "Show 'Open Folder in Explorer' in folder menus", IDC_MNU_SHOW_EXPLORER, 12, 14, 240, 12
+    LTEXT           "Explorer Menu Label:", -1, 12, 34, 86, 10
+    EDITTEXT        IDC_MNU_EXPLORER_LABEL, 100, 32, 156, 14, ES_AUTOHSCROLL
+    AUTOCHECKBOX    "Hide File Extensions in Folder Menus", IDC_MNU_HIDE_EXT, 12, 56, 240, 12
+    AUTOCHECKBOX    "Show Only Registered File Types", IDC_MNU_ONLY_REG, 12, 74, 240, 12
+    AUTOCHECKBOX    "Show Dock Settings in Item Context Menu", IDC_MNU_SHOW_SETTINGS_ALL, 12, 92, 240, 12
+END
+
+IDD_PAGE_PERFORMANCE DIALOGEX 0, 0, 270, 215
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Performance"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Quality:", -1, 12, 16, 48, 10
+    COMBOBOX        IDC_PERF_QUALITY, 68, 14, 120, 60, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Magnify Speed (In):", -1, 12, 54, 78, 10
+    CONTROL         "", IDC_PERF_IN_SLIDER, TRACKBAR_CLASSW, TBS_AUTOTICKS | WS_TABSTOP, 94, 51, 150, 18
+    LTEXT           "Magnify Speed (Out):", -1, 12, 84, 78, 10
+    CONTROL         "", IDC_PERF_OUT_SLIDER, TRACKBAR_CLASSW, TBS_AUTOTICKS | WS_TABSTOP, 94, 81, 150, 18
+END
